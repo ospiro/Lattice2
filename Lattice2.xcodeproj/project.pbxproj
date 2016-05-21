@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A78EF4261CF0CBC700DE6C90 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A78EF4251CF0CBC700DE6C90 /* main.cpp */; };
+		A78EF42E1CF0CBEE00DE6C90 /* Lattice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A78EF42C1CF0CBEE00DE6C90 /* Lattice.cpp */; };
+		A78EF4311CF0CBFD00DE6C90 /* Site.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A78EF42F1CF0CBFD00DE6C90 /* Site.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,10 @@
 /* Begin PBXFileReference section */
 		A78EF4221CF0CBC700DE6C90 /* Lattice2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Lattice2; sourceTree = BUILT_PRODUCTS_DIR; };
 		A78EF4251CF0CBC700DE6C90 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		A78EF42C1CF0CBEE00DE6C90 /* Lattice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Lattice.cpp; sourceTree = "<group>"; };
+		A78EF42D1CF0CBEE00DE6C90 /* Lattice.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Lattice.hpp; sourceTree = "<group>"; };
+		A78EF42F1CF0CBFD00DE6C90 /* Site.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Site.cpp; sourceTree = "<group>"; };
+		A78EF4301CF0CBFD00DE6C90 /* Site.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Site.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +64,10 @@
 			isa = PBXGroup;
 			children = (
 				A78EF4251CF0CBC700DE6C90 /* main.cpp */,
+				A78EF42C1CF0CBEE00DE6C90 /* Lattice.cpp */,
+				A78EF42D1CF0CBEE00DE6C90 /* Lattice.hpp */,
+				A78EF42F1CF0CBFD00DE6C90 /* Site.cpp */,
+				A78EF4301CF0CBFD00DE6C90 /* Site.hpp */,
 			);
 			path = Lattice2;
 			sourceTree = "<group>";
@@ -118,6 +128,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A78EF4311CF0CBFD00DE6C90 /* Site.cpp in Sources */,
+				A78EF42E1CF0CBEE00DE6C90 /* Lattice.cpp in Sources */,
 				A78EF4261CF0CBC700DE6C90 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
