@@ -15,19 +15,49 @@ void Site::die()
 {
     species = 0;
 }
-void Site::grow(int new_species)
+void Site::grow(int newSpecies)
 {
-    species = new_species;
+    species = newSpecies;
 }
 bool Site::isEmpty()
 {
     return (species==0);
 }
-void Site::fillNeighborArray(int numNeighbors, vector<Site*> newNeighbors)
+void Site::fillNeighborArray(unsigned long numNeighbors, vector<Site*> newNeighbors)
 {
-    neighbors.resize(numNeighbors);
     for(int i  = 0; i<numNeighbors;i++)
     {
         neighbors.push_back(newNeighbors[i]);
     }
 }
+
+bool Site::isDeveloped()
+{
+    return (species==4);
+}
+
+void Site::develop()
+{
+    species = 4;
+}
+
+int Site::getSpecies()
+{
+    return species;
+}
+
+Site* Site::getNeighbor(int index)
+{
+    return neighbors[index];
+}
+
+void Site::growIntoNeighbor(int index)
+{
+    if (neighbors[index]->isDeveloped()==false)
+    {
+        neighbors[index]->grow(species);
+    }
+    
+}
+
+

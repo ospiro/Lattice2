@@ -16,14 +16,20 @@ class Site
 {
 private:
     int species;
-     std::vector<Site*> neighbors;
+    std::vector<Site*> neighbors;
 public:
     Site();
     void die();
     void grow(int new_species);
     bool isEmpty();
+    bool isDeveloped();
+    void develop();
+    int getSpecies();
+    Site* getNeighbor(int index);
+    double getDeathRate();
+    void growIntoNeighbor(int index);
     
-    void fillNeighborArray(int numNeighbors, vector<Site*> newNeighbors);
+    void fillNeighborArray(unsigned long numNeighbors, vector<Site*> newNeighbors); //TODO: Is unsigned long necessary? loses precision when converting stepI.size() to int but probably not a problem.
 };
 
 

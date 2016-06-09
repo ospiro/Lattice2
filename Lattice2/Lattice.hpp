@@ -18,24 +18,31 @@ class Lattice
 {
 private:
     int width;
-    std::vector<std::vector<Site>> lat;
     int numNeighbors; //TODO: Does this need to ba a data member? //Number of neighbors of each site
     double grassDeathIncrement; //TODO: make sure needs to be double, same for below.
     double parasiteBirthIncrement;
-    double deathRate;
-    double birthRate;
+    double deathRate[4];
+    double birthRate[4];
     int radius; //Interaction radius
     int amountDevelopment;
+    double dt;
 public:
     Lattice(int setWidth,
             int setRadius,
             double prob[4],
-            double setBirthRate,
-            double setDeathRate,
+            double setBirthRate[4],
+            double setDeathRate[4],
             double setGrassDeathIncrement,
             double setParasiteBirthIncrement,
             int devType,
             int setAmountDevelopment);
+    void addDevelopment(int devType, int amountDevelopment);
+    void printLattice();
+    double meanConnectivity();
+    double getDeathRate(Site S);
+    void checkEvent(int ii,int jj);
+    void advanceTimeStep();
+    std::vector<std::vector<Site>> lat; //TODO: return to private after debugging
     mt19937 mt_rand;
 };
 
