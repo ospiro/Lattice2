@@ -42,6 +42,7 @@ public:
     double getDeathRate(Site S);
     void checkEvent(int ii,int jj);
     void advanceTimeStep();
+    vector<double> countPopulation();
     std::vector<std::vector<Site>> lat; //TODO: return to private after debugging
     mt19937 mt_rand;
 };

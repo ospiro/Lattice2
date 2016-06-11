@@ -36,6 +36,14 @@ int main(int argc, const char * argv[]) {
             setParasiteBirthIncrement,
             devType,
             setAmountDevelopment);
+    
+    
+    vector<double> pops = myLattice.countPopulation();
+    for(int i = 0;i<5;i++)
+    {
+        cout<<pops[i]<<endl;
+    }
+    
     for( int i = 0; i<numSteps;i++)
     {
         myLattice.advanceTimeStep();
@@ -44,7 +52,6 @@ int main(int argc, const char * argv[]) {
             myLattice.printLattice();
 
         }
-            
     }
     
     return 0;

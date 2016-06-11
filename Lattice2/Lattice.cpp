@@ -12,11 +12,13 @@
 #include <vector>
 
 
-#define empty 0
+
+#define developed 4
 #define parasite 3
 #define forb 2
 #define grass 1
-#define developed 4
+#define empty 0
+
 
 
 #define RESET   "\033[0m"
@@ -423,6 +425,20 @@ void Lattice::advanceTimeStep()
     }
 }
 
+vector<double> Lattice::countPopulation()
+{
+    vector<double> populations = {0,0,0,0,0};
+    
+    for(int i = 0; i<width;i++)
+    {
+        for(int j = 0; j<width; j++)
+        {
+            populations[lat[i][j].getSpecies()] += 100/double(width);
+        }
+        
+    }
+    return populations;
+}
 
 void Lattice::printLattice()
 {
