@@ -7,8 +7,11 @@
 //
 
 #include <iostream>
+#include <fstream>
+#include <cstring>
 #include "Lattice.hpp"
 
+using namespace std;
 int main(int argc, const char * argv[]) {
   
 
@@ -16,15 +19,15 @@ int main(int argc, const char * argv[]) {
     
     
     
-    int setWidth = 100;
-    int setRadius = 10;
+    int setWidth = atoi(argv[1]);
+    int setRadius = atoi(argv[2]);
     double prob[4] = {0.3,0.1,0.3,0.3};//first index not used
     double setBirthRate[4] = {0,4,3.2,3};
     double setDeathRate[4] = {0,1,1,1};
     double setGrassDeathIncrement = 0.5;
     double setParasiteBirthIncrement = 0.2;
     int devType = 1;
-    int setAmountDevelopment = 2500;
+    int setAmountDevelopment = 0;
     
     
     Lattice myLattice(setWidth,
@@ -38,21 +41,32 @@ int main(int argc, const char * argv[]) {
             setAmountDevelopment);
     
     
-    vector<double> pops = myLattice.countPopulation();
-    for(int i = 0;i<5;i++)
-    {
-        cout<<pops[i]<<endl;
-    }
+//    vector<double> pops = myLattice.countPopulation(); //this records empties and developed squares as well, in indices 0 and 4.
+//    for(int i = 0;i<5;i++)
+//    {
+//        cout<<pops[i]<<endl;
+//    }
     
-    for( int i = 0; i<numSteps;i++)
+    int stepOfDeath = 0;
+    for( int i = 1; i<=numSteps;i++)
     {
-        myLattice.advanceTimeStep();
-        if(i%10==0)
+//        if(i%10==0)
+//        {
+//            myLattice.printLattice();
+//        }
+        if(myLattice.checkExtinction()==true)
         {
-            myLattice.printLattice();
-
+            stepOfDeath = i;
+            break;
         }
+
+        myLattice.advanceTimeStep();
+        
     }
     
-    return 0;
+    string filename = string(argv[3])+".csv";
+    
+    ofstream record;
+    record.open(filename);
+    record<<setWidth<<","<<setRadius<<","<<stepOfDeath<<endl;
 }

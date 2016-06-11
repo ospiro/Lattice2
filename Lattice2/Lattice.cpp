@@ -384,27 +384,27 @@ void Lattice::checkEvent(int ii,int jj)
 {
     uniform_real_distribution<double> unif(0,1);
     double r = unif(mt_rand);
-    Site S = lat[ii][jj];
-    if(S.isEmpty() || S.isDeveloped())
+    Site* S = &lat[ii][jj];
+    if(S->isEmpty() || S->isDeveloped())
     {
         return;
     }
-    double trueDeathRate = getDeathRate(S);
+    double trueDeathRate = getDeathRate(*S);
     if( r < trueDeathRate*dt)
     {
-        S.die();
+        S->die();
     }
-    else if(r < (trueDeathRate + birthRate[S.getSpecies()])*dt ) //if roll birth
+    else if(r < (trueDeathRate + birthRate[S->getSpecies()])*dt ) //if roll birth
     {
         int r2 = int(unif(mt_rand)*numNeighbors);
-        S.growIntoNeighbor(r2);
+        S->growIntoNeighbor(r2);
     }
-    else if( S.getSpecies() == grass && r <  ( trueDeathRate + birthRate[S.getSpecies()] + parasiteBirthIncrement )*dt ) //if roll colonization into grass site
+    else if( S->getSpecies() == grass && r <  ( trueDeathRate + birthRate[S->getSpecies()] + parasiteBirthIncrement )*dt ) //if roll colonization into grass site
     {
         int r2 = int(unif(mt_rand)*numNeighbors);
-        if(S.getSpecies()==grass)
+        if(S->getSpecies()==grass)
         {
-            S.growIntoNeighbor(r2);
+            S->growIntoNeighbor(r2);
         }
     }
     
@@ -425,20 +425,37 @@ void Lattice::advanceTimeStep()
     }
 }
 
-vector<double> Lattice::countPopulation()
+vector<int> Lattice::countPopulation()
 {
-    vector<double> populations = {0,0,0,0,0};
+    vector<int> populations = {0,0,0,0,0};
     
     for(int i = 0; i<width;i++)
     {
         for(int j = 0; j<width; j++)
         {
-            populations[lat[i][j].getSpecies()] += 100/double(width);
+            populations[lat[i][j].getSpecies()] += 100;
         }
         
     }
     return populations;
 }
+
+
+bool Lattice::checkExtinction()
+{
+    vector<int> pops = countPopulation();
+    
+    if( pops[parasite] == 0 ||  pops[forb] == 0 || pops[grass] == 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    
+}
+
 
 void Lattice::printLattice()
 {
@@ -456,11 +473,11 @@ void Lattice::printLattice()
             }
             else if(lat[i][j].getSpecies()==forb)
             {
-                cout<< GREEN << "o " << RESET;
+                cout<< BLUE << "o " << RESET;
             }
             else if(lat[i][j].getSpecies()==grass)
             {
-                cout<< BLUE << "o "<< RESET;
+                cout<< GREEN << "o "<< RESET;
             }
             else if(lat[i][j].isDeveloped())
             {
