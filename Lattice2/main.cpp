@@ -11,6 +11,7 @@
 #include <cstring>
 #include "Lattice.hpp"
 
+
 using namespace std;
 int main(int argc, const char * argv[]) {
   
@@ -40,7 +41,7 @@ int main(int argc, const char * argv[]) {
             devType,
             setAmountDevelopment);
     
-    
+
 //    vector<double> pops = myLattice.countPopulation(); //this records empties and developed squares as well, in indices 0 and 4.
 //    for(int i = 0;i<5;i++)
 //    {
@@ -50,10 +51,10 @@ int main(int argc, const char * argv[]) {
     int stepOfDeath = 0;
     for( int i = 1; i<=numSteps;i++)
     {
-//        if(i%10==0)
-//        {
-//            myLattice.printLattice();
-//        }
+        if(i%10==0)
+        {
+            myLattice.printLattice();
+        }
         if(myLattice.checkExtinction()==true)
         {
             stepOfDeath = i;
@@ -64,9 +65,15 @@ int main(int argc, const char * argv[]) {
         
     }
     
-    string filename = string(argv[3])+".csv";
+//    string filename = string(argv[3])+".csv";
+//    
+//    ofstream record;
+//    record.open(filename);
+//    record<<setWidth<<","<<setRadius<<","<<stepOfDeath<<endl;
     
-    ofstream record;
-    record.open(filename);
-    record<<setWidth<<","<<setRadius<<","<<stepOfDeath<<endl;
+    
+    
+    
+    
+    
 }

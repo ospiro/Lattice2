@@ -53,7 +53,7 @@ Site* Site::getNeighbor(int index)
 
 void Site::growIntoNeighbor(int index)
 {
-    if (neighbors[index]->isDeveloped()==false)
+    if (neighbors[index]->isDeveloped()==false && neighbors[index]->isEmpty())
     {
         neighbors[index]->grow(species);
     }

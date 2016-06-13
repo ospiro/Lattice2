@@ -130,8 +130,8 @@ Lattice::Lattice(int setWidth,
         {
             for(int k = 0; k< numNeighbors;k++)
             {
-                int targI = mod(i+stepI[i],width);
-                int targJ = mod(j+stepJ[j],width);
+                int targI = mod(i+stepI[k],width);
+                int targJ = mod(j+stepJ[k],width);
                 newNeighbors.at(k) = &lat[targI][targJ];
             }
             lat[i][j].fillNeighborArray(numNeighbors,newNeighbors);
@@ -170,7 +170,7 @@ void Lattice::addDevelopment(int devType,int amountDevelopment)
         return; //TODO: check behavior. This is to replace mark's large "else" clause.
     }
     
-    //All of kinds of development: begin by determining # and location of cores and lines:
+    //All other kinds of development: begin by determining # and location of cores and lines:
     uniform_int_distribution<int> total(0,3); //TODO: check these ranges with mark
     int q = total(mt_rand) + total(mt_rand);
     uniform_int_distribution<int> randq(0,q);
@@ -200,11 +200,11 @@ void Lattice::addDevelopment(int devType,int amountDevelopment)
     /*If we roll to have nodes, we now need to decide where they are. We then develop the node*/
     
     
-    uniform_int_distribution<int> nodeRand(2,width-1); //TODO: Mark: why is it from 2?
+    uniform_int_distribution<int> nodeRand(0,width-1);
     int AllNodeCoords[numNodes][2];
     if(numNodes >0)
     {
-        for(int i = 0;i<=numNodes;i++)//TODO: Check indexing!
+        for(int i = 0;i<numNodes;i++)//TODO: Check indexing!
         {
             int NodeICoord = nodeRand(mt_rand);
             int NodeJCoord = nodeRand(mt_rand);
@@ -228,7 +228,7 @@ void Lattice::addDevelopment(int devType,int amountDevelopment)
         for(int i = 0; i<numLines;i++)
         {
             
-            if(unif(mt_rand) < 0.5) //TODO: ask mark: why the ifs
+            if(unif(mt_rand) < 0.5) //TODO: maybe get rid of this? since periodic boundaries
             {
                 firstEndPtI = 0;
                 firstEndPtJ = location(mt_rand);
@@ -399,7 +399,7 @@ void Lattice::checkEvent(int ii,int jj)
         int r2 = int(unif(mt_rand)*numNeighbors);
         S->growIntoNeighbor(r2);
     }
-    else if( S->getSpecies() == grass && r <  ( trueDeathRate + birthRate[S->getSpecies()] + parasiteBirthIncrement )*dt ) //if roll colonization into grass site
+    else if( S->getSpecies() == parasite && r <  ( trueDeathRate + birthRate[S->getSpecies()] + parasiteBirthIncrement )*dt ) //if roll colonization into grass site
     {
         int r2 = int(unif(mt_rand)*numNeighbors);
         if(S->getSpecies()==grass)
@@ -490,8 +490,29 @@ void Lattice::printLattice()
 }
 
 
+//==============TEST SUITE==============
 
 
+
+
+
+void Lattice::testNeighbors()
+{
+    for(int i= 0;i<width;i++)
+    {
+        for(int j = 0;j<width;j++)
+        {
+            lat[i][j].die();
+        }
+    }
+    printLattice();
+    lat[1][0].grow(parasite);
+    for(int i = 0;i<numNeighbors;i++)
+    {
+        cout<<lat[0][0].getNeighbor(i)->getSpecies()<<endl;
+    }
+    printLattice();
+}
 
 
 

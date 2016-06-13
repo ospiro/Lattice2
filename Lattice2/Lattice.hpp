@@ -46,6 +46,20 @@ public:
     bool checkExtinction();
     std::vector<std::vector<Site>> lat; //TODO: return to private after debugging
     mt19937 mt_rand;
+    
+    
+    
+    
+    //===========TEST SUITE=========================
+    void testNeighbors();
+    
+    
+    
+    
+    
+    
+    
+    
 };
 
 #endif /* Lattice_hpp */
