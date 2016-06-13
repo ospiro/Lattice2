@@ -28,7 +28,7 @@ private:
     double dt;
 public:
     Lattice(int setWidth,
-            int setRadius,
+            double setRadius,
             double prob[4],
             double setBirthRate[4],
             double setDeathRate[4],

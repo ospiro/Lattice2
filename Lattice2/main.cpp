@@ -21,13 +21,13 @@ int main(int argc, const char * argv[]) {
     
     
     int setWidth = atoi(argv[1]);
-    int setRadius = atoi(argv[2]);
+    double setRadius = atoi(argv[2]);
     double prob[4] = {0.3,0.1,0.3,0.3};//first index not used
     double setBirthRate[4] = {0,4,3.2,3};
     double setDeathRate[4] = {0,1,1,1};
     double setGrassDeathIncrement = 0.5;
     double setParasiteBirthIncrement = 0.2;
-    int devType = 1;
+    int devType = atoi(argv[3]);
     int setAmountDevelopment = 0;
     
     
@@ -65,7 +65,7 @@ int main(int argc, const char * argv[]) {
         
     }
     
-//    string filename = string(argv[3])+".csv";
+//    string filename = string(argv[4])+".csv";
 //    
 //    ofstream record;
 //    record.open(filename);

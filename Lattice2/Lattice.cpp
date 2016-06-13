@@ -47,7 +47,7 @@ int mod(int x, int m) { //gotten from http://stackoverflow.com/questions/1082917
 
 
 Lattice::Lattice(int setWidth,
-                 int setRadius,
+                 double setRadius,
                  double prob[4],
                  double setBirthRate[4],
                  double setDeathRate[4],
