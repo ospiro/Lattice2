@@ -514,6 +514,95 @@ void Lattice::testNeighbors()
     printLattice();
 }
 
+void Lattice::testCheckEvent()
+{
+    for(int i= 0;i<width;i++)
+    {
+        for(int j = 0;j<width;j++)
+        {
+            lat[i][j].die();
+        }
+    }
+    
+    lat[2][1].grow(grass);
+    lat[2][0].grow(parasite);
+    lat[1][0].grow(parasite);
+    lat[1][1].grow(parasite);
+    lat[1][2].grow(parasite);
+    lat[2][2].grow(parasite);
+    lat[3][0].grow(parasite);
+    lat[3][1].grow(parasite);
+    lat[3][2].grow(parasite);
+    
+    printLattice();
+    
+    lat[5+2][1].grow(grass);
+    lat[5+2][0].grow(grass);
+    lat[5+1][0].grow(grass);
+    lat[5+1][1].grow(grass);
+    lat[5+1][2].grow(grass);
+    lat[5+2][2].grow(grass);
+    lat[5+3][0].grow(grass);
+    lat[5+3][1].grow(grass);
+    lat[5+3][2].grow(grass);
+    
+    for(int i= 0;i<100;i++){
+        checkEvent(2, 0); //edit this line to test different species
+        checkEvent(2, 1);
+    }
+    
+    /* Notes:We see sometimes death sometimes spreads parasites birth less often, as expected. */
+    
+    //TODO: test this with development.
+    
+    printLattice();
+    
+}
+
+void Lattice::testAdvanceTimeStep()
+{
+    for(int i= 0;i<width;i++)
+    {
+        for(int j = 0;j<width;j++)
+        {
+            lat[i][j].die();
+        }
+    }
+    
+    lat[2][1].grow(grass);
+    lat[2][0].grow(parasite);
+    lat[1][0].grow(parasite);
+    lat[1][1].grow(parasite);
+    lat[1][2].grow(parasite);
+    lat[2][2].grow(parasite);
+    lat[3][0].grow(parasite);
+    lat[3][1].grow(parasite);
+    lat[3][2].grow(parasite);
+    
+    
+//    
+//    lat[5+2][1].grow(grass);
+//    lat[5+2][0].grow(grass);
+//    lat[5+1][0].grow(grass);
+//    lat[5+1][1].grow(grass);
+//    lat[5+1][2].grow(grass);
+//    lat[5+2][2].grow(grass);
+//    lat[5+3][0].grow(grass);
+//    lat[5+3][1].grow(grass);
+//    lat[5+3][2].grow(grass);
+    printLattice();
+    
+    for(int i= 0;i<100;i++){
+        advanceTimeStep();
+    }
+    
+    printLattice();
+    
+}
+
+
+
+
 
 
 

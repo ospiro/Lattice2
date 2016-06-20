@@ -52,6 +52,8 @@ public:
     
     //===========TEST SUITE=========================
     void testNeighbors();
+    void testCheckEvent();
+    void testAdvanceTimeStep();
     
     
     
