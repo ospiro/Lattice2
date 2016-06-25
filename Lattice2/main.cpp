@@ -71,7 +71,7 @@ int main(int argc, const char * argv[]) {
     
     ofstream record;
     record.open(filename);
-    record<<setWidth<<","<<setRadius<<","<<stepOfDeath<<endl;
+    record<<setWidth<<","<<setRadius<<","<<devType<<","<<setAmountDevelopment<<","<<stepOfDeath<<endl;
     
     
     
