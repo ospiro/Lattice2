@@ -40,9 +40,6 @@ int main(int argc, const char * argv[]) {
             setParasiteBirthIncrement,
             devType,
             setAmountDevelopment);
-    
-    
-    myLattice.testAdvanceTimeStep();
 
 ////    vector<int> pops = myLattice.countPopulation(); //this records empties and developed squares as well, in indices 0 and 4.
 //    for(int i = 0;i<5;i++)

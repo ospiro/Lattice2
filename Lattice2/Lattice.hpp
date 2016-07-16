@@ -43,6 +43,7 @@ public:
     void checkEvent(int ii,int jj);
     void advanceTimeStep();
     vector<int> countPopulation();
+    bool checkConnected();
     bool checkExtinction();
     std::vector<std::vector<Site>> lat; //TODO: return to private after debugging
     mt19937 mt_rand;

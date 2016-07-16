@@ -440,6 +440,89 @@ vector<int> Lattice::countPopulation()
     return populations;
 }
 
+bool Lattice::checkConnected()
+{
+    int sizeOfLat = width*width;
+    vector<vector<int>> inComponent(width);
+    vector<int> columns(width);
+    for(int i = 0; i<width;i++)
+    {
+        inComponent.push_back(columns);
+    }
+    
+    int sitesToCheck[sizeOfLat][2];
+    
+    int nextSite = 0;
+    int addIndex = 1;
+    
+    int stepI[numNeighbors];
+    int stepJ[numNeighbors];
+    
+    int k = 1;
+    
+    for(int i = -radius; i<=radius;i++)//TODO: is this range inclusive in matlab loop?
+    {
+        for(int j = -radius; i<=radius; i++)
+        {
+            if( i*i + j*j <= radius*radius && ((i!=0||j!=0)))
+            {
+                stepI[k] = i;
+                stepJ[k] = j;
+                k++;
+            }
+        }
+        
+    }
+    
+    sitesToCheck[0][0] = 0;
+    sitesToCheck[0][1] = 0;
+    
+    std::uniform_int_distribution<int> unif(0,width-1);
+    while(lat[sitesToCheck[0][0]][sitesToCheck[0][1]].isDeveloped())
+    {
+        sitesToCheck[0][0] = unif(mt_rand);
+        sitesToCheck[0][1] = unif(mt_rand);
+    }
+    
+    inComponent[sitesToCheck[0][0]][sitesToCheck[0][1]] = 1;
+    
+    while(addIndex > nextSite)
+    {
+        for(int i = 0; i<numNeighbors; i++)
+        {
+            int sI = mod(sitesToCheck[nextSite][0] + stepI[i],width);
+            int sJ = mod(sitesToCheck[nextSite][1] + stepJ[i],width);
+            
+            if( lat[sI][sJ].isDeveloped() == false && inComponent[sI][sJ] == 0)
+            {
+                inComponent[sI][sJ] = 1;
+                sitesToCheck[addIndex][0] = sI;
+                sitesToCheck[addIndex][1] = sJ;
+                addIndex++;
+            }
+        }
+        nextSite++;
+    }
+    
+    bool connected = true;
+    
+    for(int i = 0; i<width; i++)
+    {
+        for(int j = 0; j< width; j++)
+        {
+            if(inComponent[i][j] == 0 && lat[i][j].isDeveloped())
+            {
+                connected = false;
+            }
+                
+        }
+    }
+    return connected;
+}
+
+
+
+
 
 bool Lattice::checkExtinction()
 {
