@@ -55,6 +55,7 @@ public:
     void testNeighbors();
     void testCheckEvent();
     void testAdvanceTimeStep();
+    void testCheckConnected();
     
     
     

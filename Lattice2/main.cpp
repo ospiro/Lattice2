@@ -47,29 +47,29 @@ int main(int argc, const char * argv[]) {
 //        cout<<pops[i]<<endl;
 //    }
     
-    int stepOfDeath = 0;
-    for( int i = 1; i<=numSteps;i++)
-    {
-//        if(i%10==0)
+//    int stepOfDeath = 0;
+//    for( int i = 1; i<=numSteps;i++)
+//    {
+////        if(i%10==0)
+////        {
+////            myLattice.printLattice();
+////        }
+//        if(myLattice.checkExtinction()==true)
 //        {
-//            myLattice.printLattice();
+//            stepOfDeath = i;
+//            break;
 //        }
-        if(myLattice.checkExtinction()==true)
-        {
-            stepOfDeath = i;
-            break;
-        }
-
-        myLattice.advanceTimeStep();
-        
-    }
+//
+//        myLattice.advanceTimeStep();
+//        
+//    }
+    myLattice.testCheckConnected();
+//    string filename = string(argv[5])+".csv";
     
-    string filename = string(argv[5])+".csv";
-    
-    ofstream record;
-    record.open(filename);
-    record<<setWidth<<","<<setRadius<<","<<devType<<","<<setAmountDevelopment<<","<<stepOfDeath<<endl;
-    
+//    ofstream record;
+//    record.open(filename);
+//    record<<setWidth<<","<<setRadius<<","<<devType<<","<<setAmountDevelopment<<","<<stepOfDeath<<endl;
+//    
     
     
     

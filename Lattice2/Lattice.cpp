@@ -138,11 +138,24 @@ Lattice::Lattice(int setWidth,
         }
     }
     
-    
+    //throw out disconnected lattices
     if(amountDevelopment > 0)
     {
+        vector<vector<Site>> checkpointLat = lat;
+        int giveupThreshold = 100;
+        int count = 0;
         addDevelopment(devType,amountDevelopment);
+        while(checkConnected()==true && count<giveupThreshold)
+        {
+            lat = checkpointLat;
+            addDevelopment(devType,amountDevelopment);
+        }
+        if(count>=giveupThreshold)
+        {
+            throw invalid_argument("This development type/level is disconnecting the lattice");
+        }
     }
+    
     
     
 }
@@ -443,8 +456,13 @@ vector<int> Lattice::countPopulation()
 bool Lattice::checkConnected()
 {
     int sizeOfLat = width*width;
-    vector<vector<int>> inComponent(width);
+    vector<vector<int>> inComponent;
     vector<int> columns(width);
+    for(int entry: columns)
+    {
+        entry = 0;
+    }
+    
     for(int i = 0; i<width;i++)
     {
         inComponent.push_back(columns);
@@ -462,7 +480,7 @@ bool Lattice::checkConnected()
     
     for(int i = -radius; i<=radius;i++)//TODO: is this range inclusive in matlab loop?
     {
-        for(int j = -radius; i<=radius; i++)
+        for(int j = -radius; j<=radius; j++)
         {
             if( i*i + j*j <= radius*radius && ((i!=0||j!=0)))
             {
@@ -510,7 +528,7 @@ bool Lattice::checkConnected()
     {
         for(int j = 0; j< width; j++)
         {
-            if(inComponent[i][j] == 0 && lat[i][j].isDeveloped())
+            if(inComponent[i][j] == 0 && lat[i][j].isDeveloped()==false)
             {
                 connected = false;
             }
@@ -681,6 +699,30 @@ void Lattice::testAdvanceTimeStep()
     
     printLattice();
     
+}
+
+void Lattice::testCheckConnected()
+{
+    printLattice();
+    cout<< (checkConnected() ? "CONNECTED" : "DISCON")<<endl<<endl;
+    for(int i = 0; i< width; i++)
+    {
+        lat[i][floor(width/2)].develop();
+        lat[i][floor(width/2)+1].develop();
+        lat[i][floor(width/2)+5].develop();
+        lat[i][floor(width/2)+6].develop();
+        
+    }
+    for(int i = 0; i<width;i++)
+    {
+        lat[floor(width/2)][i].develop();
+        lat[floor(width/2)+1][i].develop();
+        lat[floor(width/2)+5][i].develop();
+        lat[floor(width/2)+6][i].develop();
+    }
+    printLattice();
+    
+    cout<< (checkConnected() ? "CONNECTED" : "DISCON")<<endl<<endl;
 }
 
 
