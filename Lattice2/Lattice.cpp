@@ -51,7 +51,8 @@ Lattice::Lattice(int setWidth,
                  double prob[4],
                  double setBirthRate[4],
                  double setDeathRate[4],
-                 double setGrassDeathIncrement,
+                 double setParasiteOnGrass,
+                 double setForbOnGrass,
                  double setParasiteBirthIncrement,
                  int devType,
                  int setAmountDevelopment)
@@ -63,8 +64,9 @@ Lattice::Lattice(int setWidth,
     radius = setRadius;
     std::copy(setBirthRate,setBirthRate+4,birthRate);
     std::copy(setDeathRate,setDeathRate+4,deathRate);
-    grassDeathIncrement = setGrassDeathIncrement;
-    parasiteBirthIncrement = setParasiteBirthIncrement;
+    parasiteOnGrassDeathIncrement = setParasiteOnGrass;
+    forbOnGrassDeathIncrement = setForbOnGrass;
+    parasiteBirthIncrement = 0;//setParasiteBirthIncrement TODO: reassign if necessary;
     amountDevelopment = setAmountDevelopment;
     mt_rand.seed(static_cast<unsigned int>(time(NULL))); //TODO: better seed
     std::uniform_real_distribution<double> unif(0,1);
@@ -345,7 +347,7 @@ void Lattice::addDevelopment(int devType,int amountDevelopment)
     
 }
 
-double Lattice::meanConnectivity()
+double Lattice::wellMix()
 {
     double m = 0; //Initially, keeps track of number of links from undeveloped squares to undeveloped squares. Later we divide by undevelopedSites to get average number of links per undeveloped site
     int undevelopedSites = 0;
@@ -360,7 +362,7 @@ double Lattice::meanConnectivity()
                 undevelopedSites++;
                 for(int k = 0; k < numNeighbors;k++)
                 {
-                    if( lat[i][j].getNeighbor(k)->getSpecies()!=4)
+                    if( lat[i][j].getNeighbor(k)->isDeveloped()==false)
                     {
                         m++;
                     }
@@ -370,22 +372,26 @@ double Lattice::meanConnectivity()
     }
     
     
-    return m/double(undevelopedSites*undevelopedSites);
+    return m/double(undevelopedSites);
 }
 
 double Lattice::getDeathRate(Site S) //TODO: move into site
 {
     double rate = 0;
-    if( !(S.isEmpty() || S.isDeveloped()) )
+    if( !(S.isEmpty() || S.isDeveloped()))
        {
            rate = deathRate[S.getSpecies()];
-           if(S.getSpecies()==parasite)
+           if(S.getSpecies()==grass)
            {
                for ( int i  = 0; i< numNeighbors; i++)
                {
-                   if(S.getNeighbor(i)->getSpecies()==grass)
+                   if(S.getNeighbor(i)->getSpecies()==parasite)
                    {
-                       rate = rate + grassDeathIncrement;
+                       rate = rate + parasiteOnGrassDeathIncrement;
+                   }
+                   else if(S.getNeighbor(i)->getSpecies()==forb)
+                   {
+                       rate = rate + forbOnGrassDeathIncrement;
                    }
                }
            }
@@ -412,14 +418,14 @@ void Lattice::checkEvent(int ii,int jj)
         int r2 = int(unif(mt_rand)*numNeighbors);
         S->growIntoNeighbor(r2);
     }
-    else if( S->getSpecies() == parasite && r <  ( trueDeathRate + birthRate[S->getSpecies()] + parasiteBirthIncrement )*dt ) //if roll colonization into grass site
-    {
-        int r2 = int(unif(mt_rand)*numNeighbors);
-        if(S->getSpecies()==grass)
-        {
-            S->growIntoNeighbor(r2);
-        }
-    }
+//    else if( S->getSpecies() == parasite && r <  ( trueDeathRate + birthRate[S->getSpecies()] + parasiteBirthIncrement )*dt ) //if roll colonization into grass site TODO: replace getspecies with parasite. one less function call.
+//    {
+//        int r2 = int(unif(mt_rand)*numNeighbors);
+//        if(S->getNeighbor(r2)->getSpecies()==grass)
+//        {
+//            S->growIntoNeighbor(r2);
+//        }
+//    }
     
 }
 

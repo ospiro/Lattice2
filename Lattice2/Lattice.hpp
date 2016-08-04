@@ -19,7 +19,8 @@ class Lattice
 private:
     int width;
     int numNeighbors; //TODO: Does this need to ba a data member? //Number of neighbors of each site
-    double grassDeathIncrement; //TODO: make sure needs to be double, same for below.
+    double parasiteOnGrassDeathIncrement; //TODO: make sure needs to be double, same for below.
+    double forbOnGrassDeathIncrement;
     double parasiteBirthIncrement;
     double deathRate[4];
     double birthRate[4];
@@ -32,13 +33,14 @@ public:
             double prob[4],
             double setBirthRate[4],
             double setDeathRate[4],
-            double setGrassDeathIncrement,
+            double setParasiteOnGrass,
+            double setForbOnGrass,
             double setParasiteBirthIncrement,
             int devType,
             int setAmountDevelopment);
     void addDevelopment(int devType, int amountDevelopment);
     void printLattice();
-    double meanConnectivity();
+    double wellMix();
     double getDeathRate(Site S);
     void checkEvent(int ii,int jj);
     void advanceTimeStep();
