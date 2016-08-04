@@ -147,14 +147,15 @@ Lattice::Lattice(int setWidth,
         int giveupThreshold = 100;
         int count = 0;
         addDevelopment(devType,amountDevelopment);
-        while(checkConnected()==true && count<giveupThreshold)
+        while(checkConnected()==false && count<giveupThreshold)
         {
             lat = checkpointLat;
             addDevelopment(devType,amountDevelopment);
+            count++;
         }
         if(count>=giveupThreshold)
         {
-            throw invalid_argument("This development type/level is disconnecting the lattice");
+            throw invalid_argument("This development type/amount is disconnecting the lattice");
         }
     }
     
