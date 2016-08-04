@@ -155,7 +155,7 @@ Lattice::Lattice(int setWidth,
         }
         if(count>=giveupThreshold)
         {
-            throw invalid_argument("This development type/amount is disconnecting the lattice");
+            throw std::invalid_argument("This development type/amount is disconnecting the lattice");
         }
     }
     

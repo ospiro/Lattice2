@@ -13,6 +13,7 @@
 #include <vector>
 #include "Site.hpp"
 #include <random>
+#include <stdexcept>
 using namespace std;
 class Lattice
 {
