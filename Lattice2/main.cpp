@@ -13,6 +13,7 @@
 #include <boost/program_options.hpp>
 namespace po = boost::program_options;
 
+using namespace po;
 using namespace std;
 int main(int argc, const char * argv[]) {
   
