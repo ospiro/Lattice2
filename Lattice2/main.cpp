@@ -202,7 +202,7 @@ int main(int argc, const char * argv[]) {
     
     ofstream record;
     record.open(filename);
-    record<<setWidth<<","<<setRadius<<","<<devType<<","<<setAmountDevelopment<<","<<myLattice.wellMix()<<","<<stepOfDeath<<endl;
+    record<<setWidth<<","<<setRadius<<","<<devType<<","<<setAmountDevelopment<<","<<setParasiteOnGrass<<","<<setForbOnGrass<<","<<myLattice.wellMix()<<","<<stepOfDeath<<endl;
     
     
     
