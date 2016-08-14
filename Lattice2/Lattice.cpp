@@ -123,6 +123,9 @@ Lattice::Lattice(int setWidth,
     }
     numNeighbors = stepI.size();
     
+    parasiteOnGrassDeathIncrement = parasiteOnGrassDeathIncrement / numNeighbors;
+    forbOnGrassDeathIncrement = forbOnGrassDeathIncrement / numNeighbors;
+    
     //fill neighbor vector for each site
     
     vector<Site*> newNeighbors(numNeighbors);
