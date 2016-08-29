@@ -113,7 +113,7 @@ Lattice::Lattice(int setWidth,
     {
         for(int j = -radius; j <=radius; j++)
         {
-            if((double(i)*double(i) + double(j)*double(j) <= radius*radius) && (i*i + j*j > 0))
+            if((i*i+j*j <= radius*radius) && (i*i + j*j > 0))
             {
                 count++;
                 stepI.push_back(i);
