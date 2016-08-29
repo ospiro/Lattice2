@@ -25,7 +25,7 @@ private:
     double parasiteBirthIncrement;
     double deathRate[4];
     double birthRate[4];
-    int radius; //Interaction radius
+    double radius; //Interaction radius
     int amountDevelopment;
     double dt;
 public:
