@@ -612,12 +612,14 @@ std::vector<std::vector<int>> Lattice::shortestPath(int origI, int origJ)
 {
     queue<pair<size_t,size_t>> remainingSites;
     std::vector<std::vector<int>> distance;
-    for(auto col: distance)
+    std::vector<int> column(width);
+    std::fill(column.begin(),column.end(),-1);
+    for(int i =0 ; i<width;i++)
     {
-        std::fill(col.begin(),col.end(),-1);//TODO: look up SIZE_T_MAX
+        distance.push_back(column); //TODO:there must be a better way to fill the lattice...
     }
     
-    //neighbor stepJ, etc. as usual
+    //neighbor stepJ, etc., as usual
     vector<int> stepI;
     vector<int> stepJ;
     for(int i = -radius; i <= radius; i++)
@@ -652,13 +654,9 @@ std::vector<std::vector<int>> Lattice::shortestPath(int origI, int origJ)
     }
     
     return distance;
-    
-    
-    
-    
-    
-    
 }
+
+
 
 //==============TEST SUITE==============
 

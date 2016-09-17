@@ -204,9 +204,15 @@ int main(int argc, const char * argv[]) {
 //    record.open(filename);
 //    record<<setWidth<<","<<setRadius<<","<<devType<<","<<setAmountDevelopment<<","<<setParasiteOnGrass<<","<<setForbOnGrass<<","<<myLattice.wellMix()<<","<<stepOfDeath<<endl;
     
+    std::vector<std::vector<int>> pathLengths = myLattice.shortestPath(floor(setWidth/2), floor(setWidth/2));
     
-    
-    
-    
+    for(auto col: pathLengths)
+    {
+        for(auto entry: col)
+        {
+            cout<<entry<<",";
+        }
+        cout<<endl;
+    }
     
 }
