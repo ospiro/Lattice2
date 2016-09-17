@@ -10,6 +10,8 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include<queue>
+#include<tuple>
 
 
 
@@ -115,7 +117,7 @@ Lattice::Lattice(int setWidth,
         {
             if((i*i+j*j <= radius*radius) && (i*i + j*j > 0))
             {
-                count++;
+                count++;//TODO: remove count
                 stepI.push_back(i);
                 stepJ.push_back(j);
             }
@@ -191,7 +193,7 @@ void Lattice::addDevelopment(int devType,int amountDevelopment)
     }
     
     //All other kinds of development: begin by determining # and location of cores and lines:
-    uniform_int_distribution<int> total(0,3); //TODO: check these ranges with mark
+    uniform_int_distribution<int> total(1,3); //TODO: check these ranges with mark
     int q = total(mt_rand) + total(mt_rand);
     uniform_int_distribution<int> randq(0,q);
     
@@ -306,9 +308,9 @@ void Lattice::addDevelopment(int devType,int amountDevelopment)
     
     uniform_int_distribution<int> whichNodeRand(0,numNodes-1);
     uniform_int_distribution<int> whichLineRand(0,numLines-1);
-    if(numLines == 0 && numNodes==0)
+    if(numLines == 0 && numNodes==0)//TODO: remove?
     {
-        return;
+        std::exit(EXIT_FAILURE);
     }
     while(devCompleted < amountDevelopment)
     {
@@ -333,7 +335,7 @@ void Lattice::addDevelopment(int devType,int amountDevelopment)
         }
         //Then do a random walk from that point to an undeveloped square
       
-        int stepI[4] = {-1,0,1,0};
+        int stepI[4] = {-1,0,1,0}; //TODO: move out of while
         int stepJ[4] = {0,1,0,-1};
         
         while(lat[curI][curJ].isDeveloped())
@@ -601,6 +603,62 @@ void Lattice::printLattice()
     cout<<endl<<endl<<endl;
 }
 
+
+
+
+
+//TODO: review this BFS
+std::vector<std::vector<int>> Lattice::shortestPath(int i, int j)
+{
+    queue<pair<size_t,size_t>> remainingSites;
+    std::vector<std::vector<int>> distance;
+    for(auto col: distance)
+    {
+        std::fill(col.begin(),col.end(),SIZE_T_MAX);//TODO: look up SIZE_T_MAX
+    }
+    
+    //neighbor stepJ, etc. as usual
+    vector<int> stepI;
+    vector<int> stepJ;
+    for(int i = -radius; i <= radius; i++)
+    {
+        for(int j = -radius; j <=radius; j++)
+        {
+            if((i*i+j*j <= radius*radius) && (i*i + j*j > 0))
+            {
+                stepI.push_back(i);
+                stepJ.push_back(j);
+            }
+        }
+    }
+    
+    remainingSites.push(make_pair(i,j));
+    distance[i][j] = 0;
+    while(remainingSites.size()!=0)
+    {
+        pair<int,int> current = remainingSites.front();
+        remainingSites.pop();
+        
+        for(int k =0; k< numNeighbors;k++)
+        {
+            int targI = mod(i+stepI[k],width);
+            int targJ = mod(j+stepJ[k],width);
+            if(distance[targI][targJ]==SIZE_T_MAX)
+            {
+                distance[targI][targJ] = distance[current.first][current.second] + 1;
+                remainingSites.push(make_pair(targI,targJ));
+            }
+        }
+    }
+    
+    return distance;
+    
+    
+    
+    
+    
+    
+}
 
 //==============TEST SUITE==============
 

@@ -176,33 +176,33 @@ int main(int argc, const char * argv[]) {
             devType,
             setAmountDevelopment);
 
-////    vector<int> pops = myLattice.countPopulation(); //this records empties and developed squares as well, in indices 0 and 4.
-//    for(int i = 0;i<5;i++)
+//////    vector<int> pops = myLattice.countPopulation(); //this records empties and developed squares as well, in indices 0 and 4.
+////    for(int i = 0;i<5;i++)
+////    {
+////        cout<<pops[i]<<endl;
+////    }
+//    
+//    int stepOfDeath = 0;
+//    for( int i = 1; i<=numSteps;i++)
 //    {
-//        cout<<pops[i]<<endl;
-//    }
-    
-    int stepOfDeath = 0;
-    for( int i = 1; i<=numSteps;i++)
-    {
-//        if(i%10==0)
+////        if(i%10==0)
+////        {
+////            myLattice.printLattice();
+////        }
+//        if(myLattice.checkExtinction()==true)
 //        {
-//            myLattice.printLattice();
+//            stepOfDeath = i;
+//            break;
 //        }
-        if(myLattice.checkExtinction()==true)
-        {
-            stepOfDeath = i;
-            break;
-        }
-
-        myLattice.advanceTimeStep();
-        
-    }
-    string filename = outfile+".csv";
-    
-    ofstream record;
-    record.open(filename);
-    record<<setWidth<<","<<setRadius<<","<<devType<<","<<setAmountDevelopment<<","<<setParasiteOnGrass<<","<<setForbOnGrass<<","<<myLattice.wellMix()<<","<<stepOfDeath<<endl;
+//
+//        myLattice.advanceTimeStep();
+//        
+//    }
+//    string filename = outfile+".csv";
+//    
+//    ofstream record;
+//    record.open(filename);
+//    record<<setWidth<<","<<setRadius<<","<<devType<<","<<setAmountDevelopment<<","<<setParasiteOnGrass<<","<<setForbOnGrass<<","<<myLattice.wellMix()<<","<<stepOfDeath<<endl;
     
     
     

@@ -50,6 +50,7 @@ public:
     bool checkExtinction();
     std::vector<std::vector<Site>> lat; //TODO: return to private after debugging
     mt19937 mt_rand;
+    std::vector<std::vector<int>> shortestPath(int i,int j);
     
     
     
