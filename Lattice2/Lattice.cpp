@@ -608,13 +608,13 @@ void Lattice::printLattice()
 
 
 //TODO: review this BFS
-std::vector<std::vector<int>> Lattice::shortestPath(int i, int j)
+std::vector<std::vector<int>> Lattice::shortestPath(int origI, int origJ)
 {
     queue<pair<size_t,size_t>> remainingSites;
     std::vector<std::vector<int>> distance;
     for(auto col: distance)
     {
-        std::fill(col.begin(),col.end(),SIZE_T_MAX);//TODO: look up SIZE_T_MAX
+        std::fill(col.begin(),col.end(),-1);//TODO: look up SIZE_T_MAX
     }
     
     //neighbor stepJ, etc. as usual
@@ -624,7 +624,7 @@ std::vector<std::vector<int>> Lattice::shortestPath(int i, int j)
     {
         for(int j = -radius; j <=radius; j++)
         {
-            if((i*i+j*j <= radius*radius) && (i*i + j*j > 0))
+            if((i*i+j*j <= radius*radius) && (i*i + j*j > 0) )
             {
                 stepI.push_back(i);
                 stepJ.push_back(j);
@@ -632,8 +632,8 @@ std::vector<std::vector<int>> Lattice::shortestPath(int i, int j)
         }
     }
     
-    remainingSites.push(make_pair(i,j));
-    distance[i][j] = 0;
+    remainingSites.push(make_pair(origI,origJ));
+    distance[origI][origJ] = 0;
     while(remainingSites.size()!=0)
     {
         pair<int,int> current = remainingSites.front();
@@ -641,9 +641,9 @@ std::vector<std::vector<int>> Lattice::shortestPath(int i, int j)
         
         for(int k =0; k< numNeighbors;k++)
         {
-            int targI = mod(i+stepI[k],width);
-            int targJ = mod(j+stepJ[k],width);
-            if(distance[targI][targJ]==SIZE_T_MAX)
+            int targI = mod(current.first+stepI[k],width);
+            int targJ = mod(current.second+stepJ[k],width);
+            if( !lat[targI][targJ].isDeveloped() && distance[targI][targJ]==-1) //Do not treat developed cells as neighbors in graph sense.
             {
                 distance[targI][targJ] = distance[current.first][current.second] + 1;
                 remainingSites.push(make_pair(targI,targJ));
