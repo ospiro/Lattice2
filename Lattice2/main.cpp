@@ -10,87 +10,10 @@
 #include <fstream>
 #include <cstring>
 #include "Lattice.hpp"
-//#include <boost/program_options.hpp>
-//namespace po = boost::program_options;
 
-//using namespace po;
 using namespace std;
 int main(int argc, const char * argv[]) {
-//  
-//    po::options_description desc("Parameters");
-//    desc.add_options()
-//    ("help", "Produce help message.")
-//    ("width", po::value<int>(), "Set lattice width.")
-//    ("radius",po::value<double>(),"Set interaction radius.")
-//    ("P",po::value<double>(),"Effect of parasite on grass death rate.")
-//    ("F",po::value<double>(),"Effect of forb on grass death rate.")
-//    ("devType",po::value<std::string>(),"Set development type (random/line/node/mixed).")
-//    ("amtDev",po::value<int>(),"Set total number of sites to develop.")
-//    ("outfile",po::value<std::string>(),"Filename of output csv. Saves record as file.csv if given string 'file' ")
-//;
-//    po::variables_map vm;
-//    po::store(po::parse_command_line(argc,argv,desc),vm);
-//    po::notify(vm);
-//    
-//    if(vm.count("help"))
-//    {
-//        cout<<desc<<endl;
-//        return 0;
-//    }
-//    
-//    int setWidth;
-//    if(vm.count("width"))
-//    {
-//        setWidth = vm["width"].as<int>();
-//    }
-//    double setRadius;
-//    if(vm.count("radius"))
-//    {
-//        setRadius = vm["radius"].as<double>();
-//    }
-//    double setParasiteOnGrass;
-//    if(vm.count("P"))
-//    {
-//        setParasiteOnGrass = vm["P"].as<double>();
-//    }
-//    double setForbOnGrass;
-//    if(vm.count("F"))
-//    {
-//        setForbOnGrass = vm["F"].as<double>();
-//    }
-//    int devType;
-//    if(vm.count("devType"))
-//    {
-//        if(vm["devType"].as<std::string>()=="random")
-//        {
-//            devType = 0;
-//        }
-//        if(vm["devType"].as<std::string>()=="line")
-//        {
-//            devType = 3;
-//        }
-//        else if(vm["devType"].as<std::string>()=="node")
-//        {
-//            devType = 2;
-//        }
-//        else if(vm["devType"].as<std::string>()=="mixed")
-//        {
-//            devType = 1;
-//        }
-//        //TODO: add else clause
-//    }
-//    int setAmountDevelopment;
-//    if(vm.count("amtDev"))
-//    {
-//        setAmountDevelopment = vm["amtDev"].as<int>();
-//    }
-//    std::string outfile;
-//    if(vm.count("outfile"))
-//    {
-//        outfile = vm["outfile"].as<std::string>();
-//    }
-//    
-//
+
     int setWidth;
     double setRadius;
     double setParasiteOnGrass;
@@ -99,7 +22,7 @@ int main(int argc, const char * argv[]) {
     int setAmountDevelopment;
     string outfile;
     
-    string flags[8] = {"--help","--width","--radius","--P","--F","--devType","--amtDev","--outfile"};
+//    string flags[8] = {"--help","--width","--radius","--P","--F","--devType","--amtDev","--outfile"};
     string helpMessage = "Parameters:\n"
    "--help                Produce help message. \n"
    "--width arg           Set lattice width.\n"
@@ -176,43 +99,43 @@ int main(int argc, const char * argv[]) {
             devType,
             setAmountDevelopment);
 
-//////    vector<int> pops = myLattice.countPopulation(); //this records empties and developed squares as well, in indices 0 and 4.
-////    for(int i = 0;i<5;i++)
-////    {
-////        cout<<pops[i]<<endl;
-////    }
-//    
-//    int stepOfDeath = 0;
-//    for( int i = 1; i<=numSteps;i++)
+////    vector<int> pops = myLattice.countPopulation(); //this records empties and developed squares as well, in indices 0 and 4.
+//    for(int i = 0;i<5;i++)
 //    {
-////        if(i%10==0)
-////        {
-////            myLattice.printLattice();
-////        }
-//        if(myLattice.checkExtinction()==true)
-//        {
-//            stepOfDeath = i;
-//            break;
-//        }
-//
-//        myLattice.advanceTimeStep();
-//        
+//        cout<<pops[i]<<endl;
 //    }
-//    string filename = outfile+".csv";
-//    
-//    ofstream record;
-//    record.open(filename);
-//    record<<setWidth<<","<<setRadius<<","<<devType<<","<<setAmountDevelopment<<","<<setParasiteOnGrass<<","<<setForbOnGrass<<","<<myLattice.wellMix()<<","<<stepOfDeath<<endl;
     
-    std::vector<std::vector<int>> pathLengths = myLattice.shortestPath(floor(setWidth/2), floor(setWidth/2));
-    
-    for(auto col: pathLengths)
+    int stepOfDeath = 0;
+    for( int i = 1; i<=numSteps;i++)
     {
-        for(auto entry: col)
+        if(i%10==0)
         {
-            cout<<entry<<",";
+            myLattice.printLattice();
         }
-        cout<<endl;
+        if(myLattice.checkExtinction()==true)
+        {
+            stepOfDeath = i;
+            break;
+        }
+
+        myLattice.advanceTimeStep();
+        
     }
+    string filename = outfile+".csv";
+    
+    ofstream record;
+    record.open(filename);
+    record<<setWidth<<","<<setRadius<<","<<devType<<","<<setAmountDevelopment<<","<<setParasiteOnGrass<<","<<setForbOnGrass<<","<<myLattice.wellMix()<<","<<stepOfDeath<<endl;
+    
+//    std::vector<std::vector<int>> pathLengths = myLattice.shortestPath(floor(setWidth/2), floor(setWidth/2));
+//    
+//    for(auto col: pathLengths)
+//    {
+//        for(auto entry: col)
+//        {
+//            cout<<entry<<",";
+//        }
+//        cout<<endl;
+//    }
     
 }
